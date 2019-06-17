@@ -4,7 +4,7 @@
 #
 Name     : mvn-commons-logging
 Version  : 1.0.3
-Release  : 1
+Release  : 2
 URL      : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
 Source0  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
 Source1  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
@@ -21,7 +21,7 @@ Source11  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1/c
 Source12  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-1.1
+License  : Apache-1.1 Apache-2.0
 Requires: mvn-commons-logging-data = %{version}-%{release}
 
 %description
