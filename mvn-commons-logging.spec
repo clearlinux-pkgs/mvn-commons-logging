@@ -4,29 +4,32 @@
 #
 Name     : mvn-commons-logging
 Version  : 1.0.3
-Release  : 5
+Release  : 6
 URL      : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
 Source0  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
 Source1  : https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
 Source2  : https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
-Source3  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
-Source4  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
-Source5  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.pom
-Source6  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
-Source7  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom
-Source8  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar
-Source9  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.pom
-Source10  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
-Source11  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
-Source12  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
-Source13  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
-Source14  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
-Source15  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1/commons-logging-1.1.pom
-Source16  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
+Source3  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar
+Source4  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.pom
+Source5  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
+Source6  : https://repo1.maven.org/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
+Source7  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.pom
+Source8  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
+Source9  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom
+Source10  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar
+Source11  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.pom
+Source12  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+Source13  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+Source14  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+Source15  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
+Source16  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
+Source17  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1/commons-logging-1.1.pom
+Source18  : https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-1.1 Apache-2.0
 Requires: mvn-commons-logging-data = %{version}-%{release}
+Requires: mvn-commons-logging-license = %{version}-%{release}
 
 %description
 No detailed description available
@@ -39,11 +42,22 @@ Group: Data
 data components for the mvn-commons-logging package.
 
 
+%package license
+Summary: license components for the mvn-commons-logging package.
+Group: Default
+
+%description license
+license components for the mvn-commons-logging package.
+
+
 %prep
+%setup -q -n META-INF
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-commons-logging
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-commons-logging/LICENSE.txt
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3
 cp %{SOURCE0} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
 
@@ -53,47 +67,53 @@ cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.2
 cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
 
-mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1
-cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1
-cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
+cp %{SOURCE5} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1
+cp %{SOURCE6} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3
-cp %{SOURCE5} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.pom
+cp %{SOURCE7} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4
-cp %{SOURCE6} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
+cp %{SOURCE8} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4
-cp %{SOURCE7} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom
+cp %{SOURCE9} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0
-cp %{SOURCE8} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0/commons-logging-1.0.jar
+cp %{SOURCE10} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0/commons-logging-1.0.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0
-cp %{SOURCE9} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0/commons-logging-1.0.pom
+cp %{SOURCE11} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.0/commons-logging-1.0.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1
-cp %{SOURCE10} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+cp %{SOURCE12} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1
-cp %{SOURCE11} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
+cp %{SOURCE13} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3
-cp %{SOURCE12} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+cp %{SOURCE14} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3
-cp %{SOURCE13} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
+cp %{SOURCE15} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1
-cp %{SOURCE14} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
+cp %{SOURCE16} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1
-cp %{SOURCE15} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.pom
+cp %{SOURCE17} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.2
-cp %{SOURCE16} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
+cp %{SOURCE18} %{buildroot}/usr/share/java/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
 
 
 %files
@@ -101,6 +121,8 @@ cp %{SOURCE16} %{buildroot}/usr/share/java/.m2/repository/commons-logging/common
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar
+/usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.pom
 /usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
 /usr/share/java/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
 /usr/share/java/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar
@@ -117,3 +139,7 @@ cp %{SOURCE16} %{buildroot}/usr/share/java/.m2/repository/commons-logging/common
 /usr/share/java/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.pom
 /usr/share/java/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar
 /usr/share/java/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-commons-logging/LICENSE.txt
